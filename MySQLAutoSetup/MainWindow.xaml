@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <TextBox x:Name="textBox_baseDir" Text="" HorizontalAlignment="Left" Height="23" Margin="234,41,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label" Content="mysql根目录路径" HorizontalAlignment="Left" Margin="70,39,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="生成my.ini配置文件" HorizontalAlignment="Left" Margin="70,78,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_auto_my_ini" Content="生成my.ini配置文件" HorizontalAlignment="Left" Margin="234,80,0,0" VerticalAlignment="Top" Width="120" Click="btn_auto_my_ini_Click" />
+        <Label x:Name="label2" Content="生成安装MySql服务的cmd命令脚本" HorizontalAlignment="Left" Margin="70,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.931,0.404"/>
+        <Button x:Name="btn_auto_setup_server" Content="生成脚本" HorizontalAlignment="Left" Margin="278,121,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.657,0.705" Click="btn_auto_setup_server_Click"/>
+
     </Grid>
 </Window>
