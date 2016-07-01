@@ -39,11 +39,10 @@ namespace MySQLAutoSetup
                 return;
             }
             string baseDir = textBox_baseDir.Text.ToString();
-
-            FileStream fs = new FileStream("my.ini", FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
             try
             {
+                var utf8 = new UTF8Encoding(false);    // 设置无BOM
+
                 StringBuilder sb = new StringBuilder();
                 sb.Append("[client]\r\n");
                 sb.Append("port=3305\r\n");
@@ -52,6 +51,7 @@ namespace MySQLAutoSetup
                 sb.Append("[mysqld]\r\n");
                 sb.Append("port=3305\r\n");
                 sb.Append("character_set_server=utf8\r\n");
+                sb.Append("innodb_file_per_table=1\r\n");
                 sb.Append("#服务端字符类型，建议utf8\r\n");
                 sb.Append("basedir=" + baseDir + "\r\n");
                 sb.Append("#解压根目录\r\n");
@@ -62,17 +62,12 @@ namespace MySQLAutoSetup
                 sb.Append(baseDir + "\\bin\\mysqld.exe\r\n");
                 sb.Append("#解压根目录\\bin\\mysqld.exe\r\n");
                 sb.Append("#以上是复制内容，这行可不复制");
-                sw.Write(sb.ToString());
+                File.WriteAllText("my.ini", sb.ToString(), utf8);
                 MessageBox.Show("my.ini配置文件生成成功");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (sw != null) { sw.Close(); }
-                if (fs != null) { sw.Close(); }
             }
 
         }
@@ -90,7 +85,7 @@ namespace MySQLAutoSetup
             StreamWriter sw = new StreamWriter(fs);
             try
             {
-                sw.Write("mysqld --install");
+                sw.Write("mysqld --install");     // "mysqld --install"
                 MessageBox.Show("安装服务的命令脚本生成成功,\n打开当前路径下的bin目录,\n右键点击auto_setup_server.cmd文件,\n以管理员身份运行");
             }
             catch (Exception ex)
