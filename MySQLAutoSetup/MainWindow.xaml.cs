@@ -87,6 +87,7 @@ namespace MySQLAutoSetup
             {
                 sw.Write("mysqld --install");     // "mysqld --install"
                 MessageBox.Show("安装服务的命令脚本生成成功,\n打开当前路径下的bin目录,\n右键点击auto_setup_server.cmd文件,\n以管理员身份运行");
+                File.WriteAllText("启动mysql数据库服务.cmd", "net start mysql", new UTF8Encoding(false));
             }
             catch (Exception ex)
             {
@@ -97,6 +98,15 @@ namespace MySQLAutoSetup
                 if (sw != null) sw.Close();
                 if (fs != null) fs.Close();
             }
+        }
+        /// <summary>
+        /// 窗口加载完成的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            textBox_baseDir.Text = Environment.CurrentDirectory;
         }
     }
 }
